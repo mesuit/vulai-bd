@@ -1,38 +1,39 @@
 from flask import Blueprint, request, jsonify
-from playwright.sync_api import sync_playwright
+import requests
 
 humaniser_bp = Blueprint("humaniser", __name__)
 
-@humaniser_bp.route("/humaniser", methods=["POST"])
-def humanise_text():
-    data = request.json
-    text = data.get("text")
+@humaniser_bp.route("/humanise", methods=["POST"])
+def humanise():
+    data = request.get_json()
+    text = data.get("text", "")
 
     if not text:
-        return jsonify({"error": "Text is required"}), 400
+        return jsonify({"error": "No text provided"}), 400
 
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
+        # Simulate a browser request to humanizeai.pro
+        url = "https://www.humanizeai.pro/"  # adjust if you want a specific endpoint
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                          "AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Referer": "https://www.google.com/",
+            "Connection": "keep-alive",
+        }
 
-            # Go to the site
-            page.goto("https://www.humanizeai.pro/")
+        response = requests.post(url, headers=headers, data={"text": text}, timeout=30)
 
-            # Type into the input area (update selector if different)
-            page.fill("textarea", text)
+        if response.status_code == 200:
+            return jsonify({"success": True, "output": response.text})
+        else:
+            return jsonify({
+                "success": False,
+                "status_code": response.status_code,
+                "error": response.text
+            }), response.status_code
 
-            # Click the "Humanize" button (update selector if different)
-            page.click("button:has-text('Humanize')")
-
-            # Wait for result (adjust selector depending on site output)
-            page.wait_for_selector(".result-output")
-
-            # Extract processed text
-            result = page.inner_text(".result-output")
-
-            browser.close()
-
-        return jsonify({"original": text, "humanised": result})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"success": False, "error": str(e)}), 500
