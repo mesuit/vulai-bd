@@ -6,3 +6,4 @@ flask-sqlalchemy
 requests
 stripe
 python-dotenv
+playwright
