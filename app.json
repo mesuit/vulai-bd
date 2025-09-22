@@ -1,0 +1,41 @@
+{
+  "name": "Vulai BD",
+  "description": "Assignment site with Flask backend and React frontend.",
+  "repository": "https://github.com/sesco001/vulai-bd",
+  "logo": "https://www.herokucdn.com/deploy/button.svg",
+  "keywords": ["flask", "react", "assignment", "education"],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "SECRET_KEY": {
+      "description": "A secret key for Flask session security",
+      "generator": "secret"
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Your Stripe Secret Key for payments",
+      "required": true
+    },
+    "STRIPE_PUBLISHABLE_KEY": {
+      "description": "Your Stripe Publishable Key for frontend payments",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "scripts": {
+    "postdeploy": "echo 'App deployed successfully! Run migrations if needed.'"
+  }
+}
