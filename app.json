@@ -32,10 +32,9 @@
       "size": "free"
     }
   },
-  "addons": [
-    "heroku-postgresql:hobby-dev"
-  ],
   "scripts": {
-    "postdeploy": "echo 'App deployed successfully! Run migrations if needed.'"
+    "postdeploy": "echo 'App deployed successfully!'"
   }
 }
+
+
