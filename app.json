@@ -19,7 +19,7 @@
     },
     "STRIPE_SECRET_KEY": {
       "description": "Your Stripe Secret Key for payments",
-      "required": true
+      "required": false
     },
     "STRIPE_PUBLISHABLE_KEY": {
       "description": "Your Stripe Publishable Key for frontend payments",
