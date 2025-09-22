@@ -1,9 +1,4 @@
-flask
-flask-cors
-flask-bcrypt
-flask-jwt-extended
-flask-sqlalchemy
-requests
-stripe
-python-dotenv
-playwright
+Flask==3.0.3
+gunicorn==23.0.0
+stripe==11.2.0
+requests==2.32.3
