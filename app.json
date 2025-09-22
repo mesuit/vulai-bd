@@ -26,12 +26,12 @@
       "required": false
     }
   },
-  "formation": {
-    "web": {
-      "quantity": 1,
-      "size": "free"
+ "addons": [
+    {
+      "plan": "heroku-postgresql:essential-0"
     }
   },
+   
   "scripts": {
     "postdeploy": "echo 'App deployed successfully!'"
   }
