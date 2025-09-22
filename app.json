@@ -26,15 +26,12 @@
       "required": false
     }
   },
- "addons": [
+  "addons": [
     {
       "plan": "heroku-postgresql:essential-0"
     }
-  },
-   
+  ],
   "scripts": {
     "postdeploy": "echo 'App deployed successfully!'"
   }
 }
-
-
