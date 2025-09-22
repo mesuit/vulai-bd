@@ -20,4 +20,4 @@ stripe==10.1.0
 # Optional: migrations & dotenv
 Flask-Migrate==4.0.7
 python-dotenv==1.0.1
-
+requests
